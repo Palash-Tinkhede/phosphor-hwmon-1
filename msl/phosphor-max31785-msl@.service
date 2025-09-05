@@ -1,12 +1,12 @@
 [Unit]
-Description=Phosphor MAX31785 MSL
-ConditionFileNotEmpty=/etc/default/obmc/hwmon-max31785/%I.conf
+Description=Phosphor tmp75 
+ConditionFileNotEmpty=/etc/default/obmc/soc/i2c@7e804000/%I.conf
 Wants=mapper-wait@-xyz-openbmc_project-inventory.service
 After=mapper-wait@-xyz-openbmc_project-inventory.service
 
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/max31785-msl -p "${PATHS}" -b ${BUS} -r ${REVISION}
-EnvironmentFile=/etc/default/obmc/hwmon-max31785/%I.conf
-SyslogIdentifier=max31785-msl
+ExecStart=//usr/bin/phosphor-hwmon-readd -i ${HW_SENSOR_ID} -o %I
+EnvironmentFile=/etc/default/obmc/soc/i2c@7e804000/%I.conf
+SyslogIdentifier=phosphor-hwmon-readd
 RemainAfterExit=yes
