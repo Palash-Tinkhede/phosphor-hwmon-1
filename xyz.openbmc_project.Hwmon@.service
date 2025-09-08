@@ -2,9 +2,10 @@
 Description=Phosphor Hwmon Poller
 ConditionFileNotEmpty=/etc/default/obmc/hwmon/%I.conf
 After=xyz.openbmc_project.ObjectMapper.service
+BindsTo=sys/devices/platform/soc/3f7e88804000.i2c/i2c1-1/1-004d/hwmon/hwmon1
 
 [Service]
 Restart=on-failure
-ExecStart=/usr/bin/phosphor-hwmon-readd -o %I
+ExecStart=/usr/bin/phosphor-hwmon-readd --path=sys/devices/platform/soc/3f7e88804000.i2c/i2c1-1/1-004d/hwmon/hwmon1
 SyslogIdentifier=phosphor-hwmon-readd
 EnvironmentFile=/etc/default/obmc/hwmon/%I.conf
